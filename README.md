@@ -1,4 +1,3 @@
-
 Directory structure:
 └── TayyabNazeerShaikh-PracticeApp/
     ├── PracticeApp.sln
