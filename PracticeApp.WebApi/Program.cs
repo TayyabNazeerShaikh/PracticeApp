@@ -1,3 +1,5 @@
+using PracticeApp.WebApi.Services;
+using PracticeApp.WebApi.Services.Interfaces;
 using Scalar.AspNetCore;
 
 namespace PracticeApp.WebApi
@@ -9,9 +11,11 @@ namespace PracticeApp.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
+
+            builder.Services.AddScoped<IFanService, FanService>();
+            builder.Services.AddHttpClient<IFanService, FanService>();
 
             var app = builder.Build();
 
@@ -36,7 +40,6 @@ namespace PracticeApp.WebApi
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();
