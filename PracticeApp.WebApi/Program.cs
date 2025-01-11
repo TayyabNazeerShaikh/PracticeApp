@@ -26,7 +26,7 @@ namespace PracticeApp.WebApi
                 app.MapScalarApiReference();
             }
 
-            // Add a middleware to redirect to the desired URL 
+            // Add a middleware to redirect to the desired URL
             app.Use(async (context, next) =>
             {
                 if (context.Request.Path == "/")
