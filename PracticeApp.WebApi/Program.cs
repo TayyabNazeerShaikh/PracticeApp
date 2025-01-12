@@ -1,3 +1,6 @@
+using PracticeApp.Core.Interfaces;
+using PracticeApp.Core.Services;
+using PracticeApp.Data.Repositories;
 using Scalar.AspNetCore;
 
 namespace PracticeApp.WebApi
@@ -11,6 +14,13 @@ namespace PracticeApp.WebApi
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
+
+            // Register services
+            builder.Services.AddSingleton<IProductRepository>
+            (
+                new ProductRepository("Data Source=products.db")
+            );
+            builder.Services.AddScoped<ProductService>();
 
             var app = builder.Build();
 
