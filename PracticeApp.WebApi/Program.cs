@@ -1,6 +1,7 @@
 using PracticeApp.Core.Interfaces;
 using PracticeApp.Core.Services;
 using PracticeApp.Data.Repositories;
+using PracticeApp.WebApi.Middlewares;
 using Scalar.AspNetCore;
 
 namespace PracticeApp.WebApi
@@ -15,7 +16,15 @@ namespace PracticeApp.WebApi
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
-            // Register services
+            // Register IExceptionHandler implementations.
+            builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
+            builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+            // Generate Problem Details response for common exceptions.
+            builder.Services.AddProblemDetails();
+
+            // Register services.
             builder.Services.AddSingleton<IProductRepository>
             (
                 new ProductRepository("Data Source=products.db")
@@ -31,7 +40,7 @@ namespace PracticeApp.WebApi
                 app.MapScalarApiReference();
             }
 
-            // Add a middleware to redirect to the desired URL
+            // Add a middleware to redirect to the desired URL.
             app.Use(async (context, next) =>
             {
                 if (context.Request.Path == "/")
@@ -42,6 +51,8 @@ namespace PracticeApp.WebApi
 
                 await next();
             });
+
+            app.UseExceptionHandler();
 
             app.UseHttpsRedirection();
             app.UseAuthorization();

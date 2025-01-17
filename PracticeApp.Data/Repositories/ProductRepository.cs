@@ -123,7 +123,7 @@ namespace PracticeApp.Data.Repositories
 
         public async Task<bool> CheckDatabaseExistenceAsync()
         {
-            var fileInfo = new System.IO.FileInfo(_connectionString);
+            var fileInfo = new FileInfo(_connectionString);
             return fileInfo.Exists;
         }
 
