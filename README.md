@@ -26,11 +26,18 @@ The solution is divided into multiple projects:
 Directory structure:
 └── TayyabNazeerShaikh-PracticeApp/
     ├── README.md
+    ├── CODE_OF_CONDUCT.md
+    ├── LICENSE.md
     ├── PracticeApp.sln
+    ├── SECURITY.md
+    ├── .editorconfig
     ├── PracticeApp.Core/
     │   ├── PracticeApp.Core.csproj
     │   ├── Entities/
     │   │   └── Product.cs
+    │   ├── Exceptions/
+    │   │   ├── BadRequestException.cs
+    │   │   └── NotFoundException.cs
     │   ├── Interfaces/
     │   │   └── IProductRepository.cs
     │   └── Services/
@@ -51,6 +58,10 @@ Directory structure:
         ├── appsettings.json
         ├── Controllers/
         │   └── ProductController.cs
+        ├── Middlewares/
+        │   ├── BadRequestExceptionHandler.cs
+        │   ├── GlobalExceptionHandler.cs
+        │   └── NotFoundExceptionHandler.cs
         └── Properties/
             └── launchSettings.json
 ```
