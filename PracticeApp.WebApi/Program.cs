@@ -43,9 +43,18 @@ namespace PracticeApp.WebApi
             // Add a middleware to redirect to the desired URL.
             app.Use(async (context, next) =>
             {
+                // Check if the current request path is the root
                 if (context.Request.Path == "/")
                 {
-                    context.Response.Redirect("https://localhost:7296/scalar/v1");
+                    // Get the current request's scheme (http or https) and host (e.g., localhost:5191)
+                    var currentScheme = context.Request.Scheme;     // This will be either "http" or "https"
+                    var currentHost = context.Request.Host;         // This will be the host (e.g., localhost:5191)
+
+                    // Construct the redirection URL based on the current request's scheme and host
+                    var redirectUrl = $"{currentScheme}://{currentHost}/scalar/v1";
+
+                    // Perform the redirect
+                    context.Response.Redirect(redirectUrl);
                     return;
                 }
 
